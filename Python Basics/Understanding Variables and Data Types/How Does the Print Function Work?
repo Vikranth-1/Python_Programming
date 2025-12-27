@@ -1,0 +1,15 @@
+Every programming language has some way to output data to the terminal with a built-in method, function, property, or keyword. In Python, you can use the print function to print data to the terminal. Let's take a closer look at the print function so you can start using it with confidence.
+
+One of the first things you do when you're learning any programming language is to write a simple Hello world! program. You can do that really easily in Python with just the print function.
+
+To do that, you just need to put the string Hello world! in between the opening and closing parentheses you use to call the print function:
+
+print('Hello world!') # Hello world!
+You will learn more about strings and functions in Python in future lessons. For now, just consider strings as a sequence of characters surrounded by either single (') or double (") quotation marks.
+
+In the print('Hello world!') example, the string 'Hello world!' is an argument passed to the print function. You can also use the print function to show multiple values, or arguments, at once by separating them with commas. For example:
+
+print('My favorite colors are', 'blue', 'green', 'red')
+
+# Output: My favorite colors are blue green red
+Python automatically adds a space between each item when you separate them with commas. This is helpful when you want to print several pieces of information together.
