@@ -1,0 +1,115 @@
+📘 Python Learning Roadmap
+
+A structured collection of Python notes, concepts, and problem-solving topics, organized from fundamentals to advanced concepts.
+
+📑 Index
+
+1️⃣ Python Basics
+
+Introduction to Python
+
+Understanding Variables and Data Types
+
+Introduction to Strings
+
+Numbers and Mathematical Operations
+
+Booleans and Conditionals
+
+Understanding Functions and Scope
+
+2️⃣ Loops and Sequences
+
+Working with Loops
+
+Working with Sequences
+
+3️⃣ Dictionaries and Sets
+
+Working with Dictionaries
+
+Working with Sets
+
+Working with Modules
+
+4️⃣ Error Handling
+
+Understanding Error Handling
+
+5️⃣ Classes and Objects
+
+Introduction to Classes
+
+Creating Objects
+
+Class Attributes and Methods
+
+6️⃣ Object-Oriented Programming (OOP)
+
+Understanding Object-Oriented Programming and Encapsulation
+
+Understanding Inheritance
+
+Understanding Polymorphism
+
+Understanding Abstraction
+
+7️⃣ Linear Data Structures
+
+Lists
+
+Stacks
+
+Queues
+
+Linked Lists
+
+8️⃣ Algorithms
+
+Searching Algorithms
+
+Linear Search
+
+Binary Search
+
+Sorting Algorithms
+
+Bubble Sort
+
+Selection Sort
+
+Insertion Sort
+
+9️⃣ Graphs and Trees
+
+Trees
+
+Binary Trees
+
+Binary Search Trees
+
+Graphs
+
+Graph Representation
+
+Graph Traversal Techniques
+
+🔟 Dynamic Programming
+
+Understanding Dynamic Programming
+
+Overlapping Subproblems
+
+Optimal Substructure
+
+
+
+📌 How to Use
+
+Follow the topics in order
+
+Practice examples after each section
+
+Revisit algorithms and data structures regularly
+
+
