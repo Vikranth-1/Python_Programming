@@ -101,15 +101,3 @@ Understanding Dynamic Programming
 Overlapping Subproblems
 
 Optimal Substructure
-
-
-
-📌 How to Use
-
-Follow the topics in order
-
-Practice examples after each section
-
-Revisit algorithms and data structures regularly
-
-
