@@ -1,18 +1,15 @@
-﻿// Character mapping for URL-safe filenames
+// Character mapping for URL-safe filenames
 const charMap = {
-    'â€“': '-',  // en-dash to hyphen (UTF-8 encoding issue)
-    'â€”': '-',  // em-dash to hyphen (UTF-8 encoding issue)
-    '–': '-',   // en-dash to hyphen
-    '—': '-',   // em-dash to hyphen
+    '–': '-',  // en-dash to hyphen
+    '—': '-',  // em-dash to hyphen
     ' ': '%20', // space to encoded space
 };
 
 function sanitizeFilePath(filePath) {
     let sanitizedPath = filePath;
-    // Replace the UTF-8 encoding of en-dash and em-dash with actual characters
-    // These often appear as â€“ and â€” in JavaScript strings when there's an encoding mismatch
-    sanitizedPath = sanitizedPath.replace(/â€“/g, '–');  // UTF-8 en-dash to actual en-dash
-    sanitizedPath = sanitizedPath.replace(/â€”/g, '—');  // UTF-8 em-dash to actual em-dash
+    for (const [char, replacement] of Object.entries(charMap)) {
+        sanitizedPath = sanitizedPath.replace(new RegExp(char, 'g'), replacement);
+    }
     return sanitizedPath;
 }
 
@@ -64,16 +61,20 @@ function setupEventListeners() {
 }
 
 function loadTheme(themeName) {
-    document.body.classList.remove('light-theme', 'kindle-theme');
+    document.body.classList.remove('light-theme', 'sepia-theme', 'blue-light-theme');
     
     switch(themeName) {
         case 'light':
             document.body.classList.add('light-theme');
             document.querySelector('.theme-toggle i').className = 'fas fa-sun';
             break;
-        case 'kindle':
-            document.body.classList.add('kindle-theme');
-            document.querySelector('.theme-toggle i').className = 'fas fa-book-open';
+        case 'sepia':
+            document.body.classList.add('sepia-theme');
+            document.querySelector('.theme-toggle i').className = 'fas fa-palette';
+            break;
+        case 'blue-light':
+            document.body.classList.add('blue-light-theme');
+            document.querySelector('.theme-toggle i').className = 'fas fa-tint';
             break;
         default:
             document.body.classList.add('dark-theme');
@@ -90,9 +91,12 @@ function toggleTheme() {
             currentTheme = 'light';
             break;
         case 'light':
-            currentTheme = 'kindle';
+            currentTheme = 'sepia';
             break;
-        case 'kindle':
+        case 'sepia':
+            currentTheme = 'blue-light';
+            break;
+        case 'blue-light':
         default:
             currentTheme = 'dark';
     }
@@ -297,8 +301,7 @@ function createNavTree(items, level = 0) {
         
         if (item.type === 'folder') {
             const folderDiv = document.createElement('div');
-            // Add level class to differentiate hierarchy
-            folderDiv.className = `nav-item folder level-${Math.min(level + 1, 5)}`;
+            folderDiv.className = 'nav-item folder';
             folderDiv.innerHTML = `
                 <i class="fas fa-folder"></i>
                 <span>${item.name}</span>
@@ -323,8 +326,7 @@ function createNavTree(items, level = 0) {
             li.appendChild(childUl);
         } else {
             const fileDiv = document.createElement('div');
-            // Add level class to differentiate hierarchy
-            fileDiv.className = `nav-item file level-${Math.min(level + 1, 5)}`;
+            fileDiv.className = 'nav-item file';
             fileDiv.innerHTML = `
                 <i class="fas fa-file-alt"></i>
                 <span>${item.name}</span>
@@ -373,16 +375,24 @@ function loadFileContent(filePath) {
     const contentArea = document.getElementById('contentArea');
     contentArea.innerHTML = '<div class="loading">Loading...</div>';
     
-    // Sanitize the file path for special characters before fetching
-    const sanitizedPath = sanitizeFilePath(filePath);
+    // For GitHub Pages compatibility, try direct fetch first
     console.log('Attempting to fetch file:', filePath);
-    console.log('Sanitized path:', sanitizedPath);
     
-    fetch(sanitizedPath)
+    fetch(filePath)
+        .then(response => {
+            if (!response.ok) {
+                // If direct fetch fails, try with sanitized path
+                console.log('Direct fetch failed, trying sanitized path');
+                const sanitizedPath = sanitizeFilePath(filePath);
+                console.log('Sanitized path:', sanitizedPath);
+                return fetch(sanitizedPath);
+            }
+            return response;
+        })
         .then(response => {
             console.log('Response status:', response.status);
             if (!response.ok) {
-                throw new Error(`File not found: ${sanitizedPath} (Status: ${response.status})`);
+                throw new Error(`File not found: ${filePath} (Status: ${response.status})`);
             }
             return response.text();
         })
@@ -591,4 +601,5 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-
+// AI Chat functionality
+let aiChatActive = false;
